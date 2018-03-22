@@ -1,0 +1,14 @@
+sudo: required
+
+services:
+  - docker
+
+script:
+  - docker run --rm -w "/doc" -v "$PWD":/doc thomasweise/texlive make
+
+deploy:
+  provider: releases
+  file: resume.pdf
+  skip_cleanup: true
+  on:
+    tags: true
