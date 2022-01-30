@@ -1,4 +1,7 @@
-on: [push]
+on:
+  push:
+    tags:        
+      - release-*
 
 jobs:
   release:
@@ -9,7 +12,7 @@ jobs:
       - name: Build Document
         uses: docker://vipintm/xelatex:latest
         with:
-          command: make
+          entrypoint: make
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
