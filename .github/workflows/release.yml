@@ -1,0 +1,17 @@
+on: [push]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    name: Release
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build Document
+        uses: docker://vipintm/xelatex:latest
+        with:
+          command: make
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: true
+          files: resume.pdf
